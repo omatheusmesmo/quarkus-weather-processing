@@ -1,4 +1,7 @@
-package dev.omatheusmesmo.weather.data.simulator.core.domain;
+package dev.omatheusmesmo.weather.data.simulator.core.usecase;
+
+import dev.omatheusmesmo.weather.data.simulator.core.domain.AirQuality;
+import dev.omatheusmesmo.weather.data.simulator.core.domain.WeatherData;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
