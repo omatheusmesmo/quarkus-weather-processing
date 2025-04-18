@@ -22,38 +22,3 @@ public class RabbitMQWeatherDataOutput implements WeatherDataOutput {
                 .withMetadata(Metadata.of("routing-key=weather.data")));
     }
 }
-
-
-//import jakarta.enterprise.context.ApplicationScoped;
-//import jakarta.inject.Inject;
-//// Assuming a conceptual messaging library with these annotations
-//import com.example.messaging.Channel;
-//import com.example.messaging.Emitter;
-//import com.example.messaging.Message;
-//
-//import com.example.domain.Order;
-//
-//@ApplicationScoped
-//public class OrderPublisher {
-//
-//    @Inject
-//    @Channel("order-channel") // This should match the configured channel name
-//    Emitter<Order> orderEmitter;
-//
-//    public void publishOrder(Order order, String processingType) {
-//        String routingKey;
-//        switch (processingType) {
-//            case "express":
-//                routingKey = "order.express";
-//                break;
-//            case "standard":
-//                routingKey = "order.standard";
-//                break;
-//            default:
-//                routingKey = "order.default";
-//        }
-//
-//        orderEmitter.send(Message.of(order)
-//                .withMetadata(metadata -> metadata.with("routingKey", routingKey)));
-//    }
-//}
