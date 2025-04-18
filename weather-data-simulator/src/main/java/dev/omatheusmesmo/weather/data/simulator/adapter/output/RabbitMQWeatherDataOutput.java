@@ -13,7 +13,7 @@ import org.eclipse.microprofile.reactive.messaging.Metadata;
 public class RabbitMQWeatherDataOutput implements WeatherDataOutput {
 
     @Inject
-            @Channel("weather.data.exchange")
+            @Channel("weather-data-exchange")
     Emitter<WeatherData> weatherDataEmitter;
 
     @Override

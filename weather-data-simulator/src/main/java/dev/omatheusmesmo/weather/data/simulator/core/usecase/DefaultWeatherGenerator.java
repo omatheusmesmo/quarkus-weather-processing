@@ -2,12 +2,14 @@ package dev.omatheusmesmo.weather.data.simulator.core.usecase;
 
 import dev.omatheusmesmo.weather.data.simulator.core.domain.AirQuality;
 import dev.omatheusmesmo.weather.data.simulator.core.domain.WeatherData;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.random.RandomGenerator;
 import static dev.omatheusmesmo.weather.data.simulator.core.domain.WeatherDataConstants.*;
 
+@ApplicationScoped
 public class DefaultWeatherGenerator implements WeatherGenerator {
 
     private final RandomGenerator rng = RandomGenerator.getDefault();
