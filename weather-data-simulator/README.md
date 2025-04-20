@@ -1,66 +1,86 @@
-# weather-data-simulator
+# Weather Data Simulator
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project is a weather data simulator built using **Quarkus**, the Supersonic Subatomic Java Framework. It generates random weather data and sends it to RabbitMQ for further processing.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Features
 
-## Running the application in dev mode
+- **Random Weather Data Generation**: Generates weather data with random values for temperature, humidity, pressure, air quality, and sensor ID.
+- **RabbitMQ Integration**: Sends generated weather data to RabbitMQ using reactive messaging.
+- **REST API**: Exposes an endpoint to trigger the generation of random weather data.
 
-You can run your application in dev mode that enables live coding using:
+## Project Structure
 
-```shell script
+The project follows a clean architecture approach with the following layers:
+
+- **Core Domain**: Contains the business logic and domain models (`WeatherData`, `AirQuality`, etc.).
+- **Use Cases**: Implements the application logic, such as generating weather data (`GenerateWeatherDataUseCase`).
+- **Adapters**:
+    - **Input**: REST API (`WeatherDataResource`) to trigger weather data generation.
+    - **Output**: RabbitMQ integration (`RabbitMQWeatherDataOutput`) to send weather data.
+
+## REST API
+
+### Generate Random Weather Data
+
+**Endpoint**: `GET /weather/generate/random`  
+**Description**: Generates a random number (1-10) of weather data messages and sends them to RabbitMQ.  
+**Response**: Returns the number of messages created and sent.
+
+## Running the Application
+
+### Development Mode
+
+Run the application in development mode with live coding enabled:
+
+```shell
 ./mvnw quarkus:dev
 ```
+Access the Quarkus Dev UI at <http://localhost:8080/q/dev/>.
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+### Packaging and Running
 
-## Packaging and running the application
+Package the application:
 
-The application can be packaged using:
-
-```shell script
+```shell
 ./mvnw package
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+Run the application:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+```shell
+java -jar target/quarkus-app/quarkus-run.jar
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+### Building a Native Executable
 
-## Creating a native executable
+Build a native executable:
 
-You can create a native executable using:
-
-```shell script
+```shell
 ./mvnw package -Dnative
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+Or use a containerized build:
 
-```shell script
+```shell
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/weather-data-simulator-1.0.0-SNAPSHOT-runner`
+Run the native executable:
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+```shell
+./target/weather-data-simulator-1.0.0-SNAPSHOT-runner
+```
 
-## Related Guides
+## RabbitMQ Configuration
 
-- Messaging - RabbitMQ Connector ([guide](https://quarkus.io/guides/rabbitmq)): Connect to RabbitMQ with Reactive Messaging
+The application uses the **RabbitMQ Connector** for reactive messaging. Ensure RabbitMQ is running and properly configured. The messages are sent to the `weather-data-exchange` with the routing key `weather.data`.
 
-## Provided Code
+For more details, refer to the [RabbitMQ Connector Guide](https://quarkus.io/guides/rabbitmq).
 
-### RESTEasy JAX-RS
+## Related Projects
 
-Easily start your RESTful Web Services
+This project is part of the repository [quarkus-weather-processing](https://github.com/omatheusmesmo/quarkus-weather-processing) and is located in the `weather-data-simulator` folder.
 
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+## Contact
+
+For any questions or issues, feel free to contact me at **matheus.6148@gmail.com**.
