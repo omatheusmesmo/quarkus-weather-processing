@@ -1,21 +1,51 @@
-## Weather Data Simulator - Business Rules (PO Perspective)
+## Weather Data Simulator - Product Specification (PO Perspective)
 
-As the Product Owner, I envision the **Weather Data Simulator** to fulfill the following key requirements:
+The **Weather Data Simulator** will meet the following requirements:
 
-1.  **Purpose:** The primary goal of this service is to generate realistic-looking synthetic weather data for our real-time weather data processing pipeline. This data will serve as the input for our **Weather Statistics Service**.
+1. **Purpose:**
+    - Generate realistic synthetic weather data for the real-time processing pipeline.
 
-2.  **Data Generation:** The simulator must be capable of generating weather data that includes the following fields:
-    * `timestamp`: A timestamp indicating when the data was generated. This should be in a standard format (e.g., ISO 8601 UTC).
-    * `sensor_id`: A unique identifier for the simulated weather sensor. We should be able to simulate data from multiple sensors.
-    * `temperatura`: The temperature reading in Celsius (or Fahrenheit, we can decide this). Let's go with Celsius for now.
-    * `umidade`: The humidity level as a percentage.
-    * `pressao`: The atmospheric pressure in hPa (Hectopascals).
-    * `qualidade_do_ar`: A qualitative indicator of air quality (e.g., "boa", "moderada", "ruim").
+2. **Data Fields:**
+    - `timestamp`: ISO 8601 UTC format.
+    - `sensorId`: Unique identifier for the sensor.
+    - `temperature`: Temperature in Celsius.
+    - `humidity`: Relative humidity as a percentage.
+    - `pressure`: Atmospheric pressure in hPa.
+    - `airQuality`: Air quality indicator (`GOOD`, `MEDIUM`, `BAD`).
 
-3.  **Frequency of Data Generation:** The simulator should generate and publish this weather data periodically. For our initial setup, let's aim for a configurable interval, perhaps defaulting to generating data every second.
+3. **Frequency:**
+    - Configurable interval for data generation (default: 1 second).
 
-4.  **Data Format:** All generated weather data must be formatted as a JSON object, adhering to the structure defined in our `README.md`.
+4. **Data Format:**
+       - JSON structure:
+   ```json
+   {
+      "timestamp": "2023-10-01T12:00:00",
+      "sensorId": 1,
+      "temperature": 25.5,
+      "humidity": 60.0,
+      "pressure": 1013.25,
+      "airQuality": "GOOD"
+   }
+   ```
 
-5.  **Target System:** The generated JSON data should be published to the RabbitMQ queue named `raw-data-queue`.
+5. **Target System:**
+    - Publish data to the RabbitMQ queue `raw-data-queue`.
 
-6.  **Simulating Multiple Sensors (Optional but Recommended):** To make the data more realistic and to prepare for more complex scenarios in the **Weather Statistics Service**, the simulator should be capable of generating data for multiple distinct `sensor_id` values.
+6. **Multi-Sensor Simulation:**
+    - Support multiple `sensorId` values for realistic scenarios.
+
+7. **Language Configuration:**
+    - Ensure `airQuality` and other fields are in English.
+
+8. **Validation:**
+    - Validate generated data to ensure it falls within expected ranges.
+
+9. **Non-Functional Requirements:**
+    - Performance: Support up to 10 messages per second.
+    - Fault Tolerance: Ensure retries for failed messages.
+
+10. **Example Scenario:**
+    - Simulate data flow from generation to RabbitMQ consumption for analytics.
+
+These specifications ensure the simulator meets business and technical requirements effectively.
